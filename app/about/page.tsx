@@ -5,12 +5,11 @@ import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
 import { 
   Code, 
-  Codepen, 
   Youtube, 
   Briefcase, 
   Users, 
   Database, 
-  Laptop, 
+
   Layout, 
   Server, 
   Zap, 
@@ -23,6 +22,7 @@ import {
   Quote
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 export default function About() {
   const { theme, setTheme } = useTheme();
@@ -185,7 +185,7 @@ export default function About() {
             </motion.div>
             
             <motion.p variants={fadeInUp} className="text-lg text-gray-800 dark:text-gray-200">
-              I'm a solution-driven full-stack JavaScript engineer with a proven track record of delivering high-performance web and mobile applications that drive business results.
+              I&apos;m a solution-driven full-stack JavaScript engineer with a proven track record of delivering high-performance web and mobile applications that drive business results.
             </motion.p>
             
             <motion.p variants={fadeInUp} className="text-lg text-gray-800 dark:text-gray-200">
@@ -229,7 +229,7 @@ export default function About() {
             </motion.p>
             
             <motion.p variants={fadeInUp} className="text-lg text-gray-800 dark:text-gray-200">
-              When I'm not building products for clients, I challenge myself with new technologies, compose music, and solve complex algorithms to stay at the cutting edge of development practices.
+              When I&apos;m not building products for clients, I challenge myself with new technologies, compose music, and solve complex algorithms to stay at the cutting edge of development practices.
             </motion.p>
             
             {/* YouTube Teaching Highlight */}
@@ -335,7 +335,7 @@ export default function About() {
           className="mt-20 md:mt-32 text-center max-w-3xl mx-auto"
         >
           <p className="text-xl md:text-2xl italic text-gray-700 dark:text-gray-300">
-            "I believe great code should be as invisible as it is powerful — working flawlessly behind the scenes while creating meaningful experiences for users."
+            &quot;I believe great code should be as invisible as it is powerful — working flawlessly behind the scenes while creating meaningful experiences for users.&quot;
           </p>
         </motion.div>
         
@@ -371,12 +371,12 @@ export default function About() {
                 
                 {/* Content */}
                 <div className="relative z-10">
-                  <p className="text-gray-700 dark:text-gray-300 italic mb-6">"{testimonial.quote}"</p>
+                  <p className="text-gray-700 dark:text-gray-300 italic mb-6">&quot;{testimonial.quote}&quot;</p>
                   
                   <div className="flex items-center justify-between mt-4">
                     <div className="flex items-center space-x-3">
                       <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 border-2 border-white dark:border-gray-800">
-                        <img 
+                        <Image
                           src={testimonial.image} 
                           alt={testimonial.name} 
                           className="w-full h-full object-cover"
@@ -426,7 +426,7 @@ export default function About() {
               whileTap={{ scale: 0.98 }}
               className="inline-flex items-center px-6 py-3 rounded-full bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 font-medium shadow-sm hover:shadow-md transition-all duration-300"
             >
-              Let's Build Something Amazing
+              Let&apos;s Build Something Amazing
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
               </svg>
