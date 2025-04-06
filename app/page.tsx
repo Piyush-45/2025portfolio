@@ -1,103 +1,231 @@
-import Image from "next/image";
+'use client'
+
+import Link from 'next/link';
+import { useTheme } from 'next-themes';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Github,
+  Twitter,
+  Linkedin,
+  Mail,
+  Phone,
+  Sun,
+  Moon,
+} from 'lucide-react';
+import { useEffect, useState } from 'react';
+
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const [showSocialIcons, setShowSocialIcons] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Animation for staggered icon entrance
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.1,
+        staggerChildren: 0.1 // Each icon appears with a delay
+      }
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        staggerChildren: 0.05,
+        staggerDirection: -1,
+        when: "afterChildren"
+      }
+    }
+  };
+  
+  const item = {
+    hidden: { opacity: 0, y: 10, scale: 0.8 },
+    show: { opacity: 1, y: 0, scale: 1 },
+    exit: { opacity: 0, y: -10, scale: 0.8, transition: { duration: 0.2 } }
+  };
+
+  // Toggle social icons visibility
+  const toggleSocialIcons = () => {
+    setShowSocialIcons(!showSocialIcons);
+  };
+
+  return (
+    <main className="relative min-h-screen flex items-center justify-center bg-white dark:bg-black px-6 md:px-8 overflow-hidden">
+      {/* Animated Gradient Background */}
+      <div
+        className="absolute inset-0 z-0 opacity-10 dark:opacity-5 blur-xl"
+        style={{
+          backgroundImage:
+            'linear-gradient(115deg, #3b0764, #9333ea, #2563eb, #059669, #84cc16)',
+          backgroundSize: '400% 400%',
+          animation: 'gradientShift 15s ease infinite',
+        }}
+      />
+
+      <style jsx global>{`
+        @keyframes gradientShift {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+      `}</style>
+
+      <div className="absolute top-4 right-4 z-20">
+        {mounted && (
+          <motion.button
+            whileTap={{ rotate: 360 }}
+            whileHover={{ scale: 1.2 }}
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="p-2 rounded-full border border-border dark:border-gray-700 hover:bg-muted dark:hover:bg-muted/20 transition-colors"
+            aria-label="Toggle Dark Mode"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            {theme === 'dark' ? (
+              <Sun className="w-5 h-5 text-yellow-400 transition-transform duration-300" />
+            ) : (
+              <Moon className="w-5 h-5 text-purple-600 transition-transform duration-300" />
+            )}
+          </motion.button>
+        )}
+      </div>
+
+      <div className="relative z-10 max-w-2xl w-full space-y-6">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-5xl sm:text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-zinc-700 via-slate-500 to-stone-600 bg-clip-text text-transparent tracking-tight leading-tight"
+        >
+          Piyush Tyagi<span className="text-sm align-super">*</span>
+        </motion.h1>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="text-gray-700 dark:text-gray-300 space-y-4"
+        >
+          <p>Full-stack JavaScript engineer shaping the web and mobile worlds with React & React Native.</p>
+          <p>
+            I create interfaces that feel natural and perform like magic — from smooth mobile flows to bold web experiences.
+          </p>
+          <p>
+            I care deeply about visual rhythm, maintainable code, and building tools that scale beautifully.
+          </p>
+          <p>
+            Dive into recent{' '}
+            <Link
+              href="#work"
+              className="bg-green-100 dark:bg-green-800 px-1 rounded hover:underline text-black dark:text-white"
+            >
+              work
+            </Link>
+            , get to know me better in the{' '}
+            <Link
+              href="/about"
+              className="underline hover:text-green-600 dark:hover:text-green-400"
+            >
+              about
+            </Link>{' '}
+            section or just{' '}
+            <button
+              onClick={toggleSocialIcons}
+              className="underline font-medium hover:text-green-600 dark:hover:text-green-400 hover:underline hover:decoration-2 cursor-pointer"
+            >
+              say hello
+            </button>
+            .
+          </p>
+        </motion.div>
+
+        {/* Fixed height container to prevent layout shift */}
+        <div className="h-10 relative">
+          <AnimatePresence>
+            {showSocialIcons && (
+              <motion.div 
+                className="flex space-x-4 absolute left-0 top-0"
+                variants={container}
+                initial="hidden"
+                animate="show"
+                exit="exit"
+              >
+                <motion.div variants={item}>
+                  <Link href="https://github.com" target="_blank">
+                    <motion.div
+                      whileHover={{ y: -4, scale: 1.2 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                    >
+                      <Github className="w-5 h-5 text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white" />
+                    </motion.div>
+                  </Link>
+                </motion.div>
+                
+                <motion.div variants={item}>
+                  <Link href="https://twitter.com" target="_blank">
+                    <motion.div
+                      whileHover={{ y: -4, scale: 1.2 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                    >
+                      <Twitter className="w-5 h-5 text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400" />
+                    </motion.div>
+                  </Link>
+                </motion.div>
+                
+                <motion.div variants={item}>
+                  <Link href="https://linkedin.com" target="_blank">
+                    <motion.div
+                      whileHover={{ y: -4, scale: 1.2 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                    >
+                      <Linkedin className="w-5 h-5 text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-500" />
+                    </motion.div>
+                  </Link>
+                </motion.div>
+                
+                <motion.div variants={item}>
+                  <Link href="mailto:gmail@example.com">
+                    <motion.div
+                      whileHover={{ y: -4, scale: 1.2 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                    >
+                      <Mail className="w-5 h-5 text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400" />
+                    </motion.div>
+                  </Link>
+                </motion.div>
+                
+                <motion.div variants={item}>
+                  <Link href="https://wa.me/1234567890" target="_blank">
+                    <motion.div
+                      whileHover={{ y: -4, scale: 1.2 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                    >
+                      <Phone className="w-5 h-5 text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400" />
+                    </motion.div>
+                  </Link>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </div>
+
+      {/* <AboutPage/> */}
+    </main>
   );
 }
